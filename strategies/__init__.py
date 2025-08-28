@@ -32,3 +32,11 @@ class Strategy(ABC):
             bool: True for cooperate, False for defect.
         """
         pass
+
+    @abstractmethod
+    def get_description(self) -> str:
+        """
+        Returns:
+            str: A description of this strategy to be displayed in the UI.
+        """
+        pass
