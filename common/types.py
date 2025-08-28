@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Type, Any
 
 
 @dataclass
@@ -10,9 +10,9 @@ class RoundInfo:
 
     Strategy authors can rely on non-optional fields being present
     in every call.
+    Additional fields may be added in future versions;
     Currently, there are no optional field. Once added,
     optional fields may not be provided by the engine.
-    Additional fields may be added in future versions;
     strategies can safely ignore fields they don’t use.
 
     Attributes:
@@ -25,3 +25,24 @@ class RoundInfo:
     """
     round_number: int
     payoff_matrix: Dict[Tuple[bool, bool], Tuple[int, int]]
+
+
+@dataclass
+class EngineConfigField:
+    """
+    Represents a single configuration field provided by an engine.
+
+    Engines can define any number of these fields in their configuration
+    dictionary.
+    The main app can then read the label, type and default value
+    in order to display them and to receive inputs,
+    allowing a uniform way to handle custom engine configurations.
+
+    Attributes:
+        type (Type): The type of this field.
+        default (Any): The default value of this field.
+        label (str): The text to be displayed as the name of this field.
+    """
+    type: Type
+    default: Any
+    label: str
