@@ -76,3 +76,17 @@ class Engine(ABC):
              subclasses to be used by the engine.
         """
         pass
+
+    @abstractmethod
+    def run_simulation(self) -> str:
+        """
+        Run the simulation using the provided configurations
+
+        This method will be called by the main app after
+        set_configuration has been called to run the simulation
+        using the previously provided configurations and strategies.
+
+        Returns:
+            A string representing the results of the simulation.
+        """
+        pass
