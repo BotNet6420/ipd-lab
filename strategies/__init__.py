@@ -5,18 +5,23 @@ from common.types import RoundInfo
 
 
 class Strategy(ABC):
+    """
+    Abstract base class for strategies.
+
+    Extend this class and implement the methods to define
+    your strategy.
+    Place your .py file in the 'strategies' folder for auto-loading.
+    """
+
     @abstractmethod
     def play(
-        self,
-        last_moves: Tuple[bool, bool] | Tuple[()],
-        round_info: RoundInfo
+        self, last_moves: Tuple[bool, bool] | Tuple[()], round_info: RoundInfo
     ) -> bool:
         """
-        Abstract base class for strategies.
+        Called by the engine for the strategy to make a decision.
 
-        Extend this class and implement the play() method to define your
-        strategy.
-        Place your .py file in the 'strategies' folder for auto-loading.
+        This method is called by the engine on each round,
+        for the strategy to decide whether to cooperate or defect.
 
         Usage tip: Use last_moves and round_info to decide your move.
         Store any persistent state inside self if needed.
