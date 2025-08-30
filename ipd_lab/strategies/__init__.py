@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Tuple
 
-from common.types import RoundInfo
+from ipd_lab.common.types import RoundInfo
 
 
 class Strategy(ABC):

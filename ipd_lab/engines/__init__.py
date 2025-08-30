@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Any, Type
 
-from strategies import Strategy
-from common.types import EngineConfigField
+from ipd_lab.strategies import Strategy
+from ipd_lab.common.types import EngineConfigField
 
 
 class Engine(ABC):
