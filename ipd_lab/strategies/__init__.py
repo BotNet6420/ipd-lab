@@ -29,7 +29,7 @@ class Strategy(ABC):
         Args:
             last_moves (Tuple[bool, bool] | Tuple[()]):
                 A tuple of (my_last_move, opponent_last_move).
-                None if this is the first round.
+                Empty tuple if this is the first round.
             round_info (RoundInfo):
                 Information about the current round provided by the engine.
 
