@@ -35,7 +35,12 @@ def main():
                 break
         except ValueError:
             print("Error! Invalid input type. Please enter a number.")
-    print(f"Chose engine {engine_class_list[chosen_engine].__name__}\n")
+    print(f"Chose engine {engine_class_list[chosen_engine].__name__}")
+    print("Instantiating engine...")
+    engine: engines.Engine = engine_class_list[chosen_engine]()
+    print("Success!")
+    print("Engine's description:")
+    print(engine.get_description())
 
     print("\n--Strategy Selection--\n")
     # Select strategies
@@ -70,7 +75,6 @@ def main():
         selected_strategy_class_list.append(strategy_class_list[n])
 
     # Get configuration options from the engine
-    engine: engines.Engine = engine_class_list[chosen_engine]()
     engine.set_strategies(selected_strategy_class_list)
     engine_config_options: dict[str, EngineConfigField] = (
         engine.get_configuration()
