@@ -1,6 +1,7 @@
 import ipd_lab.common.loader as loader
 import ipd_lab.engines as engines
 import ipd_lab.strategies as strategies
+from ipd_lab.common.types import EngineConfigField
 
 
 def main():
@@ -62,9 +63,12 @@ def main():
             continue
         selected_strategy_class_list.append(strategy_class_list[n])
 
-    # TODO: Set up the engine
-    engine = engine_class_list[chosen_engine]()
+    # Get configuration from the engine
+    engine: engines.Engine = engine_class_list[chosen_engine]()
     engine.set_strategies(selected_strategy_class_list)
+    engine_config_options: dict[str, EngineConfigField] = (
+        engine.get_configuration()
+    )
 
 
 if __name__ == "__main__":
