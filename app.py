@@ -1,3 +1,5 @@
+from typing import Any
+
 import ipd_lab.common.loader as loader
 import ipd_lab.engines as engines
 import ipd_lab.strategies as strategies
@@ -63,7 +65,7 @@ def main():
             continue
         selected_strategy_class_list.append(strategy_class_list[n])
 
-    # Get configuration from the engine
+    # Get configuration options from the engine
     engine: engines.Engine = engine_class_list[chosen_engine]()
     engine.set_strategies(selected_strategy_class_list)
     engine_config_options: dict[str, EngineConfigField] = (
@@ -71,10 +73,60 @@ def main():
     )
 
     # Get the user input for the configs
-    engine_config_list: dict[str, Any] = []
-    for entry in engine_config_options:
-        # Create the default options
-        engine_config_list[entry] = engine_config_options[entry].default
+    engine_config_list: dict[str, Any] = {}
+    while True:
+        print("\n--Engine Configuration--\n")
+        print("| Label: Type = Default Value |")
+        # Get the value for each entry
+        for entry in engine_config_options:
+            proceed: bool = False
+            while not proceed:  # Retry until a value is assigned
+                try:
+                    # Extract data for easier use
+                    label: str = engine_config_options[entry].label
+                    default_value = engine_config_options[entry].default
+                    value_type = engine_config_options[entry].type
+
+                    # Display the data
+
+                    print(
+                        f"| {label}: {value_type.__name__} ="
+                        f" {default_value}|"
+                    )
+                    value = input(
+                        "Enter the value " "(press Enter for default value): "
+                    )
+
+                    if not value:
+                        engine_config_list[entry] = default_value
+                    else:
+                        value = value_type(value)
+                        engine_config_list[entry] = value
+                    break
+                except ValueError:
+                    print(f"Error, invalid input type!")
+
+        # Ask if the values are good
+        print("\n\nConfiguration to be used:")
+        for entry in engine_config_list:
+            print(
+                f"{engine_config_options[entry].label} = "
+                f"{engine_config_list[entry]}"
+            )
+        value = input("Press Enter to proceed, input anything to retry: ")
+        if value:
+            print("Retrying...")
+            continue
+
+        print("Trying to set the configuration...")
+        response = engine.set_configuration(engine_config_list)
+        if not response[0]:
+            print("Failed! Engine response:")
+            print(response[1])
+            print("Retrying...")
+            continue
+        print("Success!")
+        break
 
 
 if __name__ == "__main__":
