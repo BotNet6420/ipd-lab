@@ -7,6 +7,8 @@ from ipd_lab.common.types import EngineConfigField
 
 
 def main():
+    print("--Iterated Prisoner's Dilemma Lab---")
+    print("Loading engines and strategies...")
     strategy_class_list = loader.load_classes(strategies, strategies.Strategy)
     engine_class_list = loader.load_classes(engines, engines.Engine)
 
@@ -21,6 +23,7 @@ def main():
     )
 
     # Ask for the engine to use
+    print("\n--Engine Selection--\n")
     chosen_engine: int
     print("Choose your engine:")
     print(engine_display_list + "\n")
@@ -34,6 +37,7 @@ def main():
             print("Error! Invalid input type. Please enter a number.")
     print(f"Chose engine {engine_class_list[chosen_engine].__name__}\n")
 
+    print("\n--Strategy Selection--\n")
     # Select strategies
     strategy_remove_list: list[int] = []
     selection_done: bool = False
@@ -73,9 +77,10 @@ def main():
     )
 
     # Get the user input for the configs
+    print("\n--Engine Configuration--\n")
     engine_config_list: dict[str, Any] = {}
     while True:
-        print("\n--Engine Configuration--\n")
+        print("Enter the desired values:")
         print("| Label: Type = Default Value |")
         # Get the value for each entry
         for entry in engine_config_options:
