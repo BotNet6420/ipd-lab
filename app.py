@@ -30,8 +30,8 @@ def main():
             if 0 < value <= len(engine_class_list):
                 chosen_engine = value - 1
                 break
-        except:
-            pass
+        except ValueError:
+            print("Error! Invalid input type. Please enter a number.")
     print(f"Chose engine {engine_class_list[chosen_engine].__name__}\n")
 
     # Select strategies
@@ -56,8 +56,8 @@ def main():
                 elif value == 0:
                     strategy_remove_list = []
                     break
-            except:
-                pass
+            except ValueError:
+                print("Error! Invalid input type. Please enter a number.")
     selected_strategy_class_list = []
     for n in range(len(strategy_class_list)):
         if n in strategy_remove_list:
