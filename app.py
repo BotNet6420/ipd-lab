@@ -42,18 +42,18 @@ def main():
         # Ask for list to remove
         while True:
             try:
-                value = int(
-                    input(
-                        "Enter the strategy number to remove "
-                        "(0 to save, -1 to redo): "
-                    )
+                value = input(
+                    "Enter the strategy number to remove "
+                    "(Press Enter to save, 0 to redo): "
                 )
+                if not value:
+                    selection_done = True
+                    break
+
+                value = int(value)
                 if 0 < value <= len(strategy_class_list):
                     strategy_remove_list.append(value - 1)
                 elif value == 0:
-                    selection_done = True
-                    break
-                elif value == -1:
                     strategy_remove_list = []
                     break
             except:
