@@ -133,6 +133,13 @@ def main():
         print("Success!")
         break
 
+    # Run the simulation and print the results
+    print("Running the simulation...")
+    result: str = engine.run_simulation()
+    print("Simulation Done!")
+    print("\n--Simulation results--\n")
+    print(result)
+
 
 if __name__ == "__main__":
     main()
