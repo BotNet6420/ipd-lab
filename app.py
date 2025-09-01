@@ -70,6 +70,12 @@ def main():
         engine.get_configuration()
     )
 
+    # Get the user input for the configs
+    engine_config_list: dict[str, Any] = []
+    for entry in engine_config_options:
+        # Create the default options
+        engine_config_list[entry] = engine_config_options[entry].default
+
 
 if __name__ == "__main__":
     main()
