@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Type
 
 import ipd_lab.common.loader as loader
 import ipd_lab.engines as engines
@@ -143,6 +143,23 @@ def main():
     print("Simulation Done!")
     print("\n--Simulation results--\n")
     print(result)
+
+
+def get_user_input(input_type: Type, prompt: str, allow_null: bool = False):
+    while True:
+        user_input = input(prompt)
+        # Return empty if accepted
+        if allow_null and not user_input:
+            return None
+        # Retry if empty and empty not accepted
+        if not user_input:
+            continue
+        # user_input is not empty, try to type cast it
+        try:
+            value = input_type(user_input)
+            return value
+        except ValueError:
+            print(f"Invalid input type! Please enter {input_type.__name__}.")
 
 
 if __name__ == "__main__":
