@@ -82,32 +82,25 @@ def main():
         print("| Label: Type = Default Value |")
         # Get the value for each entry
         for entry in engine_config_options:
-            proceed: bool = False
-            while not proceed:  # Retry until a value is assigned
-                try:
-                    # Extract data for easier use
-                    label: str = engine_config_options[entry].label
-                    default_value = engine_config_options[entry].default
-                    value_type = engine_config_options[entry].type
+            # Extract data for easier use
+            label: str = engine_config_options[entry].label
+            default_value = engine_config_options[entry].default
+            value_type = engine_config_options[entry].type
 
-                    # Display the data
+            # Display the data
+            print(f"| {label}: {value_type.__name__} = {default_value}|")
 
-                    print(
-                        f"| {label}: {value_type.__name__} ="
-                        f" {default_value}|"
-                    )
-                    value = input(
-                        "Enter the value " "(press Enter for default value): "
-                    )
+            # Get input
+            value = get_user_input(
+                value_type,
+                "Enter the value " "(press Enter for default value): ",
+                True,
+            )
 
-                    if not value:
-                        engine_config_list[entry] = default_value
-                    else:
-                        value = value_type(value)
-                        engine_config_list[entry] = value
-                    break
-                except ValueError:
-                    print(f"Error, invalid input type!")
+            if value is None:
+                engine_config_list[entry] = default_value
+            else:
+                engine_config_list[entry] = value
 
         # Ask if the values are good
         print("\n\nConfiguration to be used:")
@@ -116,7 +109,11 @@ def main():
                 f"{engine_config_options[entry].label} = "
                 f"{engine_config_list[entry]}"
             )
-        value = input("Press Enter to proceed, input anything to retry: ")
+
+        # Get input
+        value = get_user_input(
+            str, "Press Enter to proceed, input anything to retry: ", True
+        )
         if value:
             print("Retrying...")
             continue
