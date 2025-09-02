@@ -47,23 +47,20 @@ def main():
         print(f"Strategies list:\n{strategy_display_list}")
         # Ask for list to remove
         while True:
-            try:
-                value = input(
-                    "Enter the strategy number to remove "
-                    "(Press Enter to save, 0 to redo): "
-                )
-                if not value:
-                    selection_done = True
-                    break
+            prompt: str = (
+                "Enter the strategy number to remove "
+                "(Press Enter to save, 0 to redo): "
+            )
+            value = get_user_input(int, prompt, True)
 
-                value = int(value)
-                if 0 < value <= len(strategy_class_list):
-                    strategy_remove_list.append(value - 1)
-                elif value == 0:
-                    strategy_remove_list = []
-                    break
-            except ValueError:
-                print("Error! Invalid input type. Please enter a number.")
+            if value is None:
+                selection_done = True
+                break
+            if 0 < value <= len(strategy_class_list):
+                strategy_remove_list.append(value - 1)
+            elif value == 0:
+                strategy_remove_list = []
+                break
     selected_strategy_class_list = []
     for n in range(len(strategy_class_list)):
         if n in strategy_remove_list:
