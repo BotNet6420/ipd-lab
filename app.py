@@ -28,13 +28,10 @@ def main():
     print("Choose your engine:")
     print(engine_display_list + "\n")
     while True:
-        try:
-            value = int(input("Enter the engine number: "))
-            if 0 < value <= len(engine_class_list):
-                chosen_engine = value - 1
-                break
-        except ValueError:
-            print("Error! Invalid input type. Please enter a number.")
+        chosen_engine = get_user_input(int, "Enter the engine number: ")
+        if 0 < chosen_engine <= len(engine_class_list):
+            chosen_engine -= 1
+            break
     print(f"Chose engine {engine_class_list[chosen_engine].__name__}")
     print("Instantiating engine...")
     engine: engines.Engine = engine_class_list[chosen_engine]()
