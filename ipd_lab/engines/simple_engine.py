@@ -28,11 +28,7 @@ class SimpleEngine(Engine):
     def set_configuration(
         self, configuration: dict[str, Any]
     ) -> tuple[bool, str]:
-        if not configuration["rounds"]:
-            return False, "Engine did not find 'rounds' in the config!"
-        elif type(configuration["rounds"]) != int:
-            return False, "'rounds' type was not 'int'!"
-        elif configuration["rounds"] <= 0:
+        if configuration["rounds"] <= 0:
             return False, "'rounds' was set to a non-positive value!"
 
         try:
